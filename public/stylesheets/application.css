@@ -1,0 +1,21 @@
+
+  body{
+    background: #000 url("https://ik.arhano.ru/wp-content/uploads/2020/02/News111-scaled.jpg"); 
+    background-attachment: fixed; /* Фон страницы фиксируется */
+    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-position: center center;
+    background-size: cover;
+    
+    
+}
+.item {
+    opacity: .8;
+    transition: .3s ease;
+}
+.item:hover {
+    opacity: 1;
+}
+
+h2 {
+color: aqua;
+}
