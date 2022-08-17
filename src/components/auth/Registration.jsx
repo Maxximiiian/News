@@ -62,10 +62,8 @@ export default function Registration() {
         </div> */}
         <div>
           <button type="submit" className="btn btn-danger">Sign up!</button>
-          {/* onClick={playHandler} */}
           <Link to="/" class="btn btn-outline-danger float-left">←Back to Auth</Link>
         </div>
-
       </form>
     </div>
   );
