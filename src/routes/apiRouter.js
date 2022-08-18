@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 
+import axios from 'axios';
 import { User, Tag, UserTags } from '../db/models';
 import authCheck from '../middlewares/authCheck';
 
@@ -89,6 +90,12 @@ route.post('/createtag', authCheck, async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+route.get('/getnews', async (req, res) => {
+  const data = await axios.get('http://www.vedomosti.ru/newsline/out/rss.xml');
+//   const newData = await data.text();
+  res.json(data.data);
 });
 
 export default route;
