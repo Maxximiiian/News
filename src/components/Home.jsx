@@ -23,13 +23,11 @@ export default function Home({ authState }) {
         <div className="row">
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
-              <form onSubmit={addTagHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
+              <form className="container bg-secondary rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
-                    {tagsState.map((el) => (
-                      <div>{el.tag}</div>
-                    ))}
+                    {tagsState.map((el) => ((el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
                   </div>
                 </div>
               </form>
@@ -79,9 +77,12 @@ export default function Home({ authState }) {
           </div>
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
-              <form onSubmit={addTagHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
+              <form className="container bg-secondary rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Что я не хочу видеть?</h2>
+                  <div className="col">
+                    {tagsState.map((el) => ((!el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
+                  </div>
                 </div>
               </form>
             </div>
