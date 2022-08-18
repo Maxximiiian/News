@@ -80,11 +80,4 @@ route.post('/createtag', authCheck, async (req, res) => {
   }
 });
 
-route.get('/getnews', async (req, res) => {
-  const data = await fetch('http://www.vedomosti.ru/newsline/out/rss.xml');
-  // console.log(await data.text());
-  const newData = await data.text();
-  res.json(newData);
-});
-
 export default route;
