@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function AllNews() {
+export default function AllNews({ authState }) {
+  console.log(authState);
   // fetch юзэффектом на апишку и вывести данные мапом в ретерн
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>

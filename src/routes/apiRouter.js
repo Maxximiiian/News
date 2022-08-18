@@ -1,5 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
+
 import { User, Tag, UserTags } from '../db/models';
 import authCheck from '../middlewares/authCheck';
 
@@ -38,7 +39,9 @@ route.post('/auth', async (req, res) => {
   }
 });
 
-route.post('/createtag', async (req, res) => {
+
+route.post('/createtag', authCheck, async (req, res) => {
+
   // DLYA  СОЗДАНИЯ ТЕГОВ
   try {
     

@@ -12,7 +12,6 @@ export default function Home() {
       body: JSON.stringify(input),
     });
   };
-
   return (
     <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
       <div style={{ height: '250px' }} />
