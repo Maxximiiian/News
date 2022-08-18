@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function Home() {
+export default function Home({ authState }) {
+  console.log(authState);
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>
       <div style={{ height: '250px' }} />

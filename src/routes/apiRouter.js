@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { User } from '../db/models';
-import authCheck from '../middlewares/authCheck'
+import authCheck from '../middlewares/authCheck';
 
 const route = express.Router();
 
@@ -27,8 +27,8 @@ route.post('/auth', async (req, res) => {
     const currUser = await User.findOne({ where: { email } });
     if (currUser) {
       const comparePassword = await bcrypt.compare(password, currUser.password);
-      if (comparePassword){
-        req.session.userSession = { email: currUser.email};
+      if (comparePassword) {
+        req.session.userSession = { email: currUser.email };
         return res.json({ email: currUser.email });
       }
     }
@@ -37,7 +37,6 @@ route.post('/auth', async (req, res) => {
     console.error(err);
   }
 });
-
 
 route.post('/createtag', authCheck, async (req, res) => {
   // DLYA  СОЗДАНИЯ ТЕГОВ
