@@ -16,4 +16,37 @@ route.get('/', async (req, res) => {
   }
 });
 
+route.get('/registration', async (req, res) => {
+  try {
+    const initState = { path: req.originalUrl };
+    const html = renderToString(<Layout initState={initState} />);
+    res.write('<!DOCTYPE html>');
+    res.end(html);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+route.get('/home', async (req, res) => {
+  try {
+    const initState = { path: req.originalUrl };
+    const html = renderToString(<Layout initState={initState} />);
+    res.write('<!DOCTYPE html>');
+    res.end(html);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+route.get('/news', async (req, res) => {
+  try {
+    const initState = { path: req.originalUrl };
+    const html = renderToString(<Layout initState={initState} />);
+    res.write('<!DOCTYPE html>');
+    res.end(html);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 export default route;
