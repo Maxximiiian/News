@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import { User } from '../db/models';
-import authCheck from '../middlewares/authCheck'
+import { User, Tag, UserTags } from '../db/models';
+import authCheck from '../middlewares/authCheck';
 
 const route = express.Router();
 
@@ -27,8 +27,8 @@ route.post('/auth', async (req, res) => {
     const currUser = await User.findOne({ where: { email } });
     if (currUser) {
       const comparePassword = await bcrypt.compare(password, currUser.password);
-      if (comparePassword){
-        req.session.userSession = { email: currUser.email};
+      if (comparePassword) {
+        req.session.userSession = { email: currUser.email };
         return res.json({ email: currUser.email });
       }
     }
@@ -38,22 +38,38 @@ route.post('/auth', async (req, res) => {
   }
 });
 
-
-route.post('/createtag', authCheck, async (req, res) => {
+route.post('/createtag', async (req, res) => {
   // DLYA  СОЗДАНИЯ ТЕГОВ
-  // const { email, password } = req.body;
-  // try {
-  //   const currUser = await User.findOne({ where: { email } });
-  //   if (!currUser) {
-  //     const hashPassword = await bcrypt.hash(password, 10);
-  //     const newUser = await User.create({ email, password: hashPassword });
-  //     req.session.userSession = { email: newUser.email };
-  //     return res.json({ email: newUser.email });
-  //   }
-  //   res.status(400).json({ message: 'Такой email уже занят' });
-  // } catch (err) {
-  //   console.error(err);
-  // }
+  try {
+    
+    const { tagName, tagChoise, userId } = req.body;
+    // if(tagName)
+    const [newTag, hadAdded] = await Tag.findOrCreate({
+      where: {
+        tagName,
+      },
+    });
+    console.log(newTag.dataValues.id);
+    if (tagChoise === 'false') {
+      const userTag = await UserTags.findOrCreate({
+        where: {
+          userId: 1, /// ///////////////////////////////////////////////////////
+          tagId: newTag.dataValues.id,
+          isFavorite: false,
+        },
+      });
+    } else {
+      const userTag = await UserTags.findOrCreate({
+        where: {
+          userId: 1, /// ///////////////////////////////////////////////////////
+          tagId: newTag.dataValues.id,
+          isFavorite: true,
+        },
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 export default route;
