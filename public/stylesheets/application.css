@@ -1,10 +1,10 @@
 
   body{
-    background: #000 url("https://ik.arhano.ru/wp-content/uploads/2020/02/News111-scaled.jpg"); 
-    background-attachment: fixed; /* Фон страницы фиксируется */
+    background-color: white ; 
+    background-attachment: fixed; /*Фон страницы фиксируется */
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
     background-position: center center;
-    background-size: cover;
+    background-size:contain;
     
     
 }
@@ -20,7 +20,27 @@ h2 {
 color: aqua;
 }
 
-.middle {
+/* .middle {
     position: relative;
     left:400px;
+} */
+
+.navbar{
+background-color: #4520ab;
+}
+.navbar-brand{
+    color: aqua;
+}
+.nav-link{
+    color: coral;
+    position:relative;
+
+}
+.lk{
+    position: relative;
+    left:420px;  
+}
+.out{
+    position: relative;
+    left:-10px;
 }
