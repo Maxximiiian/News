@@ -50,7 +50,8 @@ export default function Auth() {
         <div className="mx-auto mt-5">
           <h2>Don't register yet?</h2>
           <Link to="/registration" className="btn btn-danger">Registration</Link>
-          <Link to="/news" className="btn btn-danger">СКИПАНУТЬ НА ХОУМ</Link>
+          <Link to="/news" className="btn btn-danger">СКИПАНУТЬ НА News</Link>
+          <Link to="/home" className="btn btn-danger">СКИПАНУТЬ НА ХОУМ</Link>
         </div>
       </form>
     </div>
