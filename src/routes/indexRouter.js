@@ -2,6 +2,7 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import React from 'react';
 import Layout from '../components/Layout';
+import authCheck from '../middlewares/authCheck';
 
 const route = express.Router();
 
@@ -27,7 +28,7 @@ route.get('/registration', async (req, res) => {
   }
 });
 
-route.get('/home', async (req, res) => {
+route.get('/home', authCheck, async (req, res) => {
   try {
     const initState = { path: req.originalUrl };
     const html = renderToString(<Layout initState={initState} />);
@@ -38,7 +39,18 @@ route.get('/home', async (req, res) => {
   }
 });
 
-route.get('/news', async (req, res) => {
+route.get('/news', authCheck, async (req, res) => {
+  try {
+    const initState = { path: req.originalUrl };
+    const html = renderToString(<Layout initState={initState} />);
+    res.write('<!DOCTYPE html>');
+    res.end(html);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+route.get('/notauth', async (req, res) => {
   try {
     const initState = { path: req.originalUrl };
     const html = renderToString(<Layout initState={initState} />);
