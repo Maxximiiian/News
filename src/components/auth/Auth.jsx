@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Auth() {
+export default function Auth({ authState, setAuthState }) {
   const navigate = useNavigate();
 
   const [input, setInput] = useState({ email: '', password: '' });
@@ -15,6 +15,8 @@ export default function Auth() {
       body: JSON.stringify(input),
     });
     if (response.ok) {
+      const data = await response.json();
+      setAuthState(data);
       navigate('/news');
     } else {
       alert('hui sosi');
@@ -24,7 +26,7 @@ export default function Auth() {
 
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>
-      <div style={{ height: '250px' }} />
+      <div style={{ height: '150px' }} />
       <form className="container bg-secondary rounded-3 py-3 item" align="center" onSubmit={signInHandler}>
         <div className="mb-3">
           <h2>Email</h2>

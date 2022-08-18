@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { User } from '../db/models';
+import authCheck from '../middlewares/authCheck'
 
 const route = express.Router();
 
@@ -38,7 +39,7 @@ route.post('/auth', async (req, res) => {
 });
 
 
-route.post('/createtag', async (req, res) => {
+route.post('/createtag', authCheck, async (req, res) => {
   // DLYA  СОЗДАНИЯ ТЕГОВ
   // const { email, password } = req.body;
   // try {
