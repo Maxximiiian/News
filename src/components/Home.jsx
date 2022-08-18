@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 export default function Home({ authState }) {
   const [input, setInput] = useState({ tagName: '', authState });
+  const [tagsState, setTagsState] = useState([] || []);
+
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const addTagHandler = async (event) => {
     event.preventDefault();
@@ -10,6 +12,8 @@ export default function Home({ authState }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),
     });
+    const data = await response.json();
+    console.log(data);
   };
   return (
     <>
@@ -18,7 +22,14 @@ export default function Home({ authState }) {
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
               <form onSubmit={addTagHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
-                <button type="submit" className="btn btn-danger mt-3">Добавить</button>
+                <div className="mb-3">
+                  <h2>Что я хочу видеть?</h2>
+                  <div className="col">
+                    {tagsState.map((el) => (
+                      <div>{el.tagName}</div>
+                    ))}
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -67,7 +78,9 @@ export default function Home({ authState }) {
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
               <form onSubmit={addTagHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
-                <button type="submit" className="btn btn-danger mt-3">Добавить</button>
+                <div className="mb-3">
+                  <h2>Что я не хочу видеть?</h2>
+                </div>
               </form>
             </div>
           </div>
