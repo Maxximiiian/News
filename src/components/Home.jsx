@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function Home({ authState }) {
   const [input, setInput] = useState({ tagName: '', authState });
-  const [tagsState, setTagsState] = useState([] || []);
+  const [tagsState, setTagsState] = useState([]);
 
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const addTagHandler = async (event) => {
@@ -13,8 +13,10 @@ export default function Home({ authState }) {
       body: JSON.stringify(input),
     });
     const data = await response.json();
-    console.log(data);
+    setTagsState(data);
+    // console.log(data);
   };
+  console.log(tagsState, tagsState[0]);
   return (
     <>
       <div className="container">
@@ -26,7 +28,7 @@ export default function Home({ authState }) {
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
                     {tagsState.map((el) => (
-                      <div>{el.tagName}</div>
+                      <div>{el.tag}</div>
                     ))}
                   </div>
                 </div>
