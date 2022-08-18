@@ -5,19 +5,23 @@ import Auth from './auth/Auth';
 import NotAuth from './auth/NotAuth';
 import Registration from './auth/Registration';
 import Home from './Home';
+import Navbar from './Navbar';
 
 function App({ userSession }) {
   const [authState, setAuthState] = useState(userSession || null);
 
   return (
-    <Routes>
-      <Route index path="/" element={<Auth authState={authState} setAuthState={setAuthState} />} />
-      <Route index path="/registration" element={<Registration setAuthState={setAuthState} />} />
-      <Route index path="/news" element={<AllNews />} />
-      <Route index path="/home" element={<Home />} />
-      <Route index path="/notauth" element={<NotAuth />} />
+    <>
+      <Navbar authState={authState} setAuthState={setAuthState} />
+      <Routes>
+        <Route index path="/" element={<Auth authState={authState} setAuthState={setAuthState} />} />
+        <Route index path="/registration" element={<Registration setAuthState={setAuthState} />} />
+        <Route index path="/news" element={<AllNews />} />
+        <Route index path="/home" element={<Home />} />
+        <Route index path="/notauth" element={<NotAuth />} />
 
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
