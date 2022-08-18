@@ -38,6 +38,11 @@ route.post('/auth', async (req, res) => {
     console.error(err);
   }
 });
+route.get('/logout', async (req, res) => {
+  res.clearCookie('user_sid'); // Удалить куку
+  req.session.destroy(); // Завершить сессию
+  res.sendStatus(200);
+});
 
 route.post('/createtag', authCheck, async (req, res) => {
   try {

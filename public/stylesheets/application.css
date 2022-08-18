@@ -19,3 +19,8 @@
 h2 {
 color: aqua;
 }
+
+.middle {
+    position: relative;
+    left:400px;
+}
