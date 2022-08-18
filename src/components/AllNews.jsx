@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import fetch from 'node-fetch';
+import { load } from 'cheerio';
+
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 export default function AllNews({ authState }) {
-  console.log(authState);
-  // fetch юзэффектом на апишку и вывести данные мапом в ретерн
+  const [news, setNews] = useState();
+  useEffect(() => {
+    fetch('/api/v1/getnews').then((res) => (res.json())).then((data) => setNews(data));
+  }, []);
+
+  const url = 'http://www.vedomosti.ru/newsline/out/rss.xml';
+  axios.get(url)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .cath((error) => {
+      console.log(error);
+    });
+
+
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>
       <div style={{ height: '150px' }} />
