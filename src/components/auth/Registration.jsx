@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Registration() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [input, setInput] = useState({ email: '', password: '', repeat: '' });
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const signUpHandler = async (event) => {
@@ -12,7 +12,7 @@ export default function Registration() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(input),
-      })
+      });
       navigate('/news');
     } else {
       alert('LOH PIDR');

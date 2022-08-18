@@ -6,6 +6,7 @@ import Registration from './auth/Registration';
 import Home from './Home';
 
 function App() {
+  
   return (
     <Routes>
       <Route index path="/" element={<Auth />} />

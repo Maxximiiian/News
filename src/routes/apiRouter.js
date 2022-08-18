@@ -20,6 +20,24 @@ route.post('/registration', async (req, res) => {
   }
 });
 
+route.post('/auth', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const currUser = await User.findOne({ where: { email } });
+    if (currUser) {
+      const comparePassword = await bcrypt.compare(password, currUser.password);
+      if (comparePassword){
+        req.session.userSession = { email: currUser.email};
+        return res.json({ email: currUser.email });
+      }
+    }
+    res.status(400).json({ message: 'email or password uncorrected' });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+
 route.post('/createtag', async (req, res) => {
   // DLYA  СОЗДАНИЯ ТЕГОВ
   // const { email, password } = req.body;
