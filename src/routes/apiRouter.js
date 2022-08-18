@@ -4,7 +4,7 @@ import { User } from '../db/models';
 
 const route = express.Router();
 
-route.get('/registration', async (req, res) => {
+route.post('/registration', async (req, res) => {
   const { email, password } = req.body;
   try {
     const currUser = await User.findOne({ where: { email } });

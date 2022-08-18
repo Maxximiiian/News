@@ -33,8 +33,9 @@ app.use(express.static('public'));
 app.use(session(sessionConfig));
 
 app.use('/', indexRouter);
-app.use(authCheck);
+
 app.use('/api/v1', apiRouter);
+app.use(authCheck);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);
