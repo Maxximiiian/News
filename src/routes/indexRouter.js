@@ -8,7 +8,7 @@ const route = express.Router();
 
 route.get('/', async (req, res) => {
   try {
-    const initState = { path: req.originalUrl };
+    const initState = { path: req.originalUrl, userSession: req.session.userSession };
     const html = renderToString(<Layout initState={initState} />);
     res.write('<!DOCTYPE html>');
     res.end(html);
@@ -19,7 +19,7 @@ route.get('/', async (req, res) => {
 
 route.get('/registration', async (req, res) => {
   try {
-    const initState = { path: req.originalUrl };
+    const initState = { path: req.originalUrl, userSession: req.session.userSession };
     const html = renderToString(<Layout initState={initState} />);
     res.write('<!DOCTYPE html>');
     res.end(html);
@@ -30,7 +30,7 @@ route.get('/registration', async (req, res) => {
 
 route.get('/home', authCheck, async (req, res) => {
   try {
-    const initState = { path: req.originalUrl };
+    const initState = { path: req.originalUrl, userSession: req.session.userSession };
     const html = renderToString(<Layout initState={initState} />);
     res.write('<!DOCTYPE html>');
     res.end(html);
@@ -41,7 +41,7 @@ route.get('/home', authCheck, async (req, res) => {
 
 route.get('/news', authCheck, async (req, res) => {
   try {
-    const initState = { path: req.originalUrl };
+    const initState = { path: req.originalUrl, userSession: req.session.userSession };
     const html = renderToString(<Layout initState={initState} />);
     res.write('<!DOCTYPE html>');
     res.end(html);
@@ -52,7 +52,7 @@ route.get('/news', authCheck, async (req, res) => {
 
 route.get('/notauth', async (req, res) => {
   try {
-    const initState = { path: req.originalUrl };
+    const initState = { path: req.originalUrl, userSession: req.session.userSession };
     const html = renderToString(<Layout initState={initState} />);
     res.write('<!DOCTYPE html>');
     res.end(html);

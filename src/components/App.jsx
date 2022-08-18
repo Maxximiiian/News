@@ -12,10 +12,10 @@ function App({ userSession }) {
   return (
     <Routes>
       <Route index path="/" element={<Auth authState={authState} setAuthState={setAuthState} />} />
-      <Route index path="/registration" element={<Registration setAuthState={setAuthState} />} />
-      <Route index path="/news" element={<AllNews />} />
-      <Route index path="/home" element={<Home />} />
-      <Route index path="/notauth" element={<NotAuth />} />
+      <Route index path="/registration" element={<Registration authState={authState} setAuthState={setAuthState} />} />
+      <Route index path="/news" element={<AllNews authState={authState} />} />
+      <Route index path="/home" element={<Home authState={authState} />} />
+      <Route index path="/notauth" element={<NotAuth authState={authState} />} />
 
     </Routes>
   );
