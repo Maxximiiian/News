@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Auth({ authState, setAuthState }) {
+  console.log(authState);
+
   const navigate = useNavigate();
 
   const [input, setInput] = useState({ email: '', password: '' });

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function NotAuth() {
+export default function NotAuth({authState}) {
+  console.log(authState);
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>
       <div style={{ height: '150px' }} />
