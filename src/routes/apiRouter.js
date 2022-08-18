@@ -39,24 +39,24 @@ route.post('/auth', async (req, res) => {
   }
 });
 
-
 route.post('/createtag', authCheck, async (req, res) => {
-
-  // DLYA  СОЗДАНИЯ ТЕГОВ
   try {
-    
-    const { tagName, tagChoise, userId } = req.body;
-    // if(tagName)
+    const {
+      tagName, tagChoise, authState,
+    } = req.body;
+    const currUser = await User.findOne({ where: { email: authState.email } });
+    // console.log(currUser.email);
+    const currUserId = currUser.dataValues.id;
     const [newTag, hadAdded] = await Tag.findOrCreate({
       where: {
         tagName,
       },
     });
-    console.log(newTag.dataValues.id);
+    // console.log(newTag.dataValues.id);
     if (tagChoise === 'false') {
       const userTag = await UserTags.findOrCreate({
         where: {
-          userId: 1, /// ///////////////////////////////////////////////////////
+          userId: currUserId,
           tagId: newTag.dataValues.id,
           isFavorite: false,
         },
@@ -64,7 +64,7 @@ route.post('/createtag', authCheck, async (req, res) => {
     } else {
       const userTag = await UserTags.findOrCreate({
         where: {
-          userId: 1, /// ///////////////////////////////////////////////////////
+          userId: currUserId,
           tagId: newTag.dataValues.id,
           isFavorite: true,
         },

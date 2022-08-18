@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-export default function Home() {
-  const [input, setInput] = useState({ tagName: '' });
+export default function Home({ authState }) {
+  const [input, setInput] = useState({ tagName: '', authState });
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const addTagHandler = async (event) => {
     event.preventDefault();
-    // console.log(input);
     const response = await fetch('/api/v1/createtag', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
