@@ -63,6 +63,9 @@ border: solid 2px blue;
     font-family: 'Jost', sans-serif;    
     font-weight: bolder;
 }
+.charnews:hover{
+color: aqua;
+}
 .zalupa{
     background-color: #4520ab;
 }
