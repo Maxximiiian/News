@@ -62,10 +62,10 @@ export default function Home({ authState }) {
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
                     {tagsState.map((el) => ((el.isFavorite) ? (
-                      <div className="mt-3">
+                      <div className="mt-3 hover-effect-btn">
                         {el.tag}
                         {' '}
-                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="btn btn-danger">Удалить</button>
+                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="button">Удалить</button>
                       </div>
                     ) : (<></>)))}
                   </div>
@@ -115,6 +115,7 @@ export default function Home({ authState }) {
                     <label htmlFor="contactChoice2">Добавить в черный список</label>
                   </div>
                 </div>
+                <div style={{ height: '10px' }} />
                 <button type="submit" className="btn">Добавить</button>
               </form>
             </div>
@@ -126,10 +127,10 @@ export default function Home({ authState }) {
                   <h2>Что я не хочу видеть?</h2>
                   <div className="col">
                     {tagsState.map((el) => ((!el.isFavorite) ? (
-                      <div className="mt-3">
+                      <div className="mt-3 hover-effect-btn">
                         {el.tag}
                         {' '}
-                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="btn btn-danger">Удалить</button>
+                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="button">Удалить</button>
                       </div>
                     ) : (<></>)))}
                   </div>
