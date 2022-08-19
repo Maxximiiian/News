@@ -33,7 +33,7 @@ export default function Home({ authState }) {
         <div className="row">
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
-              <form className="container bg-secondary rounded-3 py-3 item" align="center">
+              <form className="container zalupa rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
@@ -45,7 +45,7 @@ export default function Home({ authState }) {
           </div>
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
-              <form onSubmit={addTagHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
+              <form onSubmit={addTagHandler} className="container zalupa rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Добавить тег</h2>
                   <input
@@ -81,13 +81,13 @@ export default function Home({ authState }) {
                     <label htmlFor="contactChoice2">Добавить в черный список</label>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-danger mt-3">Добавить</button>
+                <button type="submit" className="btn">Добавить</button>
               </form>
             </div>
           </div>
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
-              <form className="container bg-secondary rounded-3 py-3 item" align="center">
+              <form className="container zalupa rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Что я не хочу видеть?</h2>
                   <div className="col">

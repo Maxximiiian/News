@@ -29,7 +29,7 @@ export default function Registration({ authState, setAuthState }) {
   return (
     <div className="mx-auto mt-5" style={{ width: '400px' }}>
       <div style={{ height: '150px' }} />
-      <form onSubmit={signUpHandler} className="container bg-secondary rounded-3 py-3 item" align="center">
+      <form onSubmit={signUpHandler} className="container zalupa rounded-3 py-3 item" align="center">
         <div className="mb-3">
           <h2>Email</h2>
           <input
