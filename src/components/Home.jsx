@@ -27,9 +27,7 @@ export default function Home({ authState }) {
                 <div className="mb-3">
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
-                    {tagsState.map((el) => (
-                      <div>{el.tag}</div>
-                    ))}
+                    {tagsState.map((el) => ((el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
                   </div>
                 </div>
               </form>
@@ -82,6 +80,9 @@ export default function Home({ authState }) {
               <form className="container bg-secondary rounded-3 py-3 item" align="center">
                 <div className="mb-3">
                   <h2>Что я не хочу видеть?</h2>
+                  <div className="col">
+                    {tagsState.map((el) => ((!el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
+                  </div>
                 </div>
               </form>
             </div>
