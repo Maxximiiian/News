@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 export default function Home({ authState }) {
   const [input, setInput] = useState({ tagName: '', authState });
-
+  // const [isFavorite, setIsFavorite] = useState('');
   const [tagsState, setTagsState] = useState([]);
+
+  // const handleChange = (event) => {
+  //   setIsFavorite(event.target.value);
+  // };
 
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const addTagHandler = async (event) => {
@@ -15,8 +19,13 @@ export default function Home({ authState }) {
     });
 
     const data = await response.json();
+    console.log(data);
     setTagsState(data);
     // console.log(data);
+    setInput({ tagName: '', authState });
+    console.log(input);
+    // , tagChoise: 'false'
+    setIsFavorite('');
   };
   useEffect(() => {
     fetch('api/v1/tags', {
@@ -26,7 +35,19 @@ export default function Home({ authState }) {
     })
       .then((res) => res.json()).then((resp) => setTagsState(resp));
   }, []);
-  // console.log(tagsState, tagsState[0]);
+
+  const deleteHandler = async (event, el) => {
+    event.preventDefault();
+    console.log(el);
+    const response = await fetch(`/api/v1/delete/${el.id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(el),
+    });
+    if (response.ok) {
+      setTagsState((prev) => prev.filter((element) => element.id !== el.id));
+    }
+  };
   return (
     <>
       <div className="container">
@@ -37,7 +58,13 @@ export default function Home({ authState }) {
                 <div className="mb-3">
                   <h2>Что я хочу видеть?</h2>
                   <div className="col">
-                    {tagsState.map((el) => ((el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
+                    {tagsState.map((el) => ((el.isFavorite) ? (
+                      <div className="mt-3">
+                        {el.tag}
+                        {' '}
+                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="btn btn-danger">Удалить</button>
+                      </div>
+                    ) : (<></>)))}
                   </div>
                 </div>
               </form>
@@ -67,6 +94,8 @@ export default function Home({ authState }) {
                       id="favoritIsTrue"
                       name="tagChoise"
                       value="true"
+                      // checked={isFavorite === 'true'}
+                      // onChange={handleChange}
                     />
                     <label htmlFor="contactChoice1">Добавить в любимые</label>
                   </div>
@@ -77,6 +106,8 @@ export default function Home({ authState }) {
                       id="favoritIsFalse"
                       name="tagChoise"
                       value="false"
+                      // checked={isFavorite === 'false'}
+                      // onChange={handleChange}
                     />
                     <label htmlFor="contactChoice2">Добавить в черный список</label>
                   </div>
@@ -91,7 +122,13 @@ export default function Home({ authState }) {
                 <div className="mb-3">
                   <h2>Что я не хочу видеть?</h2>
                   <div className="col">
-                    {tagsState.map((el) => ((!el.isFavorite) ? <div>{el.tag}</div> : (<></>)))}
+                    {tagsState.map((el) => ((!el.isFavorite) ? (
+                      <div className="mt-3">
+                        {el.tag}
+                        {' '}
+                        <button onClick={(event) => deleteHandler(event, el)} type="delete" className="btn btn-danger">Удалить</button>
+                      </div>
+                    ) : (<></>)))}
                   </div>
                 </div>
               </form>
