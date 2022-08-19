@@ -45,6 +45,28 @@ route.get('/logout', async (req, res) => {
   res.sendStatus(200);
 });
 
+route.post('/tags', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const currUser = await User.findOne({ where: { email } });
+    const currUserId = currUser.dataValues.id;
+
+    const currUserTagsModel = await UserTags.findAll({ where: { userId: currUserId } });
+    const allUserTagId = currUserTagsModel.map((el) => (el.dataValues.tagId));
+    const booleanOfAllTags = currUserTagsModel.map((el) => (el.dataValues.isFavorite));
+
+    const allUserTags = allUserTagId.map(async (el, i) => {
+      const oneTag = await Tag.findOne({ where: { id: el } });
+      return { tag: oneTag.dataValues.tagName, isFavorite: booleanOfAllTags[i] };
+    });
+
+    Promise.all(allUserTags)
+      .then((responses) => res.json(responses));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 route.post('/createtag', authCheck, async (req, res) => {
   try {
     const {
@@ -57,17 +79,6 @@ route.post('/createtag', authCheck, async (req, res) => {
         tagName,
       },
     });
-
-    const currUserTagsModel = await UserTags.findAll({ where: { userId: currUserId } });
-    const allUserTagId = currUserTagsModel.map((el) => (el.dataValues.tagId));
-    const booleanOfAllTags = currUserTagsModel.map((el) => (el.dataValues.isFavorite));
-
-    const allUserTags = allUserTagId.map(async (el, i) => {
-      const oneTag = await Tag.findOne({ where: { id: el } });
-      // console.log(oneTag.dataValues.tagName);
-      return { tag: oneTag.dataValues.tagName, isFavorite: booleanOfAllTags[i] };
-    });
-
     if (tagChoise === 'false') {
       const userTag = await UserTags.findOrCreate({
         where: {
@@ -85,6 +96,17 @@ route.post('/createtag', authCheck, async (req, res) => {
         },
       });
     }
+
+    const currUserTagsModel = await UserTags.findAll({ where: { userId: currUserId } });
+    const allUserTagId = currUserTagsModel.map((el) => (el.dataValues.tagId));
+    const booleanOfAllTags = currUserTagsModel.map((el) => (el.dataValues.isFavorite));
+
+    const allUserTags = allUserTagId.map(async (el, i) => {
+      const oneTag = await Tag.findOne({ where: { id: el } });
+      // console.log(oneTag.dataValues.tagName);
+      return { tag: oneTag.dataValues.tagName, isFavorite: booleanOfAllTags[i] };
+    });
+
     Promise.all(allUserTags)
       .then((responses) => res.json(responses));
   } catch (err) {
