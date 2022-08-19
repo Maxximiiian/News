@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Home({ authState }) {
-  const [input, setInput] = useState({ tagName: '', authState });
-  // const [isFavorite, setIsFavorite] = useState('');
+  const [input, setInput] = useState({ tagName: '', authState, tagChoise: null });
   const [tagsState, setTagsState] = useState([]);
+  console.log(input);
 
-  // const handleChange = (event) => {
-  //   setIsFavorite(event.target.value);
-  // };
+  const [isFavorite, setIsFavorite] = useState(false);
+  const handleChange = (e) => {
+    console.log(isFavorite);
+    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const addTagHandler = async (event) => {
+    console.log(input);
     event.preventDefault();
     const response = await fetch('/api/v1/createtag', {
       method: 'POST',
@@ -22,10 +25,10 @@ export default function Home({ authState }) {
     console.log(data);
     setTagsState(data);
     // console.log(data);
-    setInput({ tagName: '', authState });
+    setInput({ tagName: '', authState, tagChoise: null });
     console.log(input);
     // , tagChoise: 'false'
-    setIsFavorite('');
+    // setIsFavorite('');
   };
   useEffect(() => {
     fetch('api/v1/tags', {
@@ -89,25 +92,25 @@ export default function Home({ authState }) {
                 <div className="radios">
                   <div className="col">
                     <input
-                      onChange={changeHandler}
+                    //   onChange={changeHandler}
                       type="radio"
                       id="favoritIsTrue"
                       name="tagChoise"
                       value="true"
-                      // checked={isFavorite === 'true'}
-                      // onChange={handleChange}
+                      checked={input.tagChoise === 'true'}
+                      onChange={handleChange}
                     />
                     <label htmlFor="contactChoice1">Добавить в любимые</label>
                   </div>
                   <div className="col">
                     <input
-                      onChange={changeHandler}
+                    //   onChange={changeHandler}
                       type="radio"
                       id="favoritIsFalse"
                       name="tagChoise"
                       value="false"
-                      // checked={isFavorite === 'false'}
-                      // onChange={handleChange}
+                      checked={input.tagChoise === 'false'}
+                      onChange={handleChange}
                     />
                     <label htmlFor="contactChoice2">Добавить в черный список</label>
                   </div>
