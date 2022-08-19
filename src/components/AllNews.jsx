@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
+import ReactPlayer from 'react-player';
+
 
 export default function AllNews({ authState }) {
+
+const [plyerState, setPlyerState] = useState(false);
   const [tagsState, setTagsState] = useState([]);
   const [news, setNews] = useState();
   const [text, setText] = useState([{ title: '', link: '' }]);
@@ -38,6 +43,14 @@ export default function AllNews({ authState }) {
       });
   }, []);
 
+
+  const pleerHandler = (e) => {
+    e.preventDefault();
+    setPlyerState(!plyerState);
+    console.log(plyerState);
+  };
+
+
   // useEffect(() => {
 
   // }, []);
@@ -61,10 +74,21 @@ export default function AllNews({ authState }) {
   // console.log(ell);
   // }
   // console.log((arr));
+
   // fetch юзэффектом на апишку и вывести данные мапом в ретерн
 
   return (
     <>
+      {plyerState
+        ? (
+          <>
+            <div className="player">
+              <ReactPlayer className="container zalupa rounded-3 py-3 item" align="center" url="https://www.youtube.com/watch?v=pNU_ImrnyVU" />
+            </div>
+          </>
+        )
+        : <></>}
+      <button className="btnplyer" type="button" onClick={pleerHandler}>Музыка</button>
       {text?.map((el, i) => (
         <div className="mx-auto mt-5" style={{ width: '500px' }}>
           <form className="container zalupa rounded-3 py-3 item" align="center">
@@ -74,6 +98,7 @@ export default function AllNews({ authState }) {
               </a>
             </div>
           </form>
+
         </div>
       ))}
     </>

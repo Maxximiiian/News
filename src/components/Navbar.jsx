@@ -16,7 +16,7 @@ export default function Navbar({ authState, setAuthState }) {
     <>
       {!authState
         ? (<></>) : (
-          <nav className="navbar zalupa">
+          <nav className="navbar zalupa fixed-top">
             <div className="container-fluid">
               <NavLink to="/news" className="navbar-brand">Хорошие новости</NavLink>
               <NavLink to="/home" className="nav-link middle">Личный кабинет</NavLink>

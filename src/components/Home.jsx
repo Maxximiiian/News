@@ -54,6 +54,7 @@ export default function Home({ authState }) {
   return (
     <>
       <div className="container">
+        <div style={{ height: '80px' }} />
         <div className="row">
           <div className="col-sm">
             <div className="align-top mx-auto mt-5" style={{ width: '400px' }}>
