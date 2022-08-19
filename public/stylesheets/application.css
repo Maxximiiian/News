@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300&family=Russo+One&display=swap');
+
 body{
     background: white url('https://media.proglib.io/events/2020/06/05/139630d138c5138dcc0f1dfaf06b3846.jpg'); 
     background-attachment: fixed; /*Фон страницы фиксируется */
@@ -46,83 +47,151 @@ body{
     background-color:aqua;
     border: solid 1px #777777;
 }
+
 .item {
     opacity: .91;
     transition: .3s ease;
 }
+
 .item:hover {
     opacity: 1;
 }
 
 h2 {
-color: coral;
+    color: coral;
 }
-.col{
+
+.col {
     color: aqua;
 }
-.registr{
+
+.registr {
     background-color: #4520ab;
 }
 
 .middle {
     position: relative;
-    left:400px;
-} */
+    left: 400px;
+}
+
 
 .navbar{
 background-color: #4520ab;
 position: fixed;
 top: 0;
+
 }
-.navbar-brand{
+
+.navbar-brand {
     color: aqua;
     font-family: 'Russo One', sans-serif;
-    font-size:  25px;
+    font-size: 25px;
 }
-.nav-link:hover{
+
+.nav-link:hover {
     color: aqua;
 }
-.nav-link{
+
+.nav-link {
     color: coral;
-    position:relative;
+    position: relative;
 
 }
-.lk{
+
+.lk {
     position: relative;
-    left:420px;  
-}
-.out{
-    position: relative;
-    left:-10px;
-}
-.form-control:hover{
-border: solid 2px blue;
+    left: 420px;
 }
 
-.mb-3{
-    font-family: 'Jost', sans-serif;    
+.out {
+    position: relative;
+    left: -10px;
+}
+
+.form-control:hover {
+    border: solid 2px blue;
+}
+
+.mb-3 {
+    font-family: 'Jost', sans-serif;
     font-weight: bolder;
 }
-.charnews:hover{
-color: aqua;
+
+.charnews:hover {
+    color: aqua;
 }
-.zalupa{
-    background-color: #6133dd;
+
+
+.zalupa {
+    background-color: #4520ab;
+
 }
-.btn{
-    text-align: center; 
-    padding: 8px 10px; 
+
+.btn {
+    text-align: center;
+    padding: 8px 10px;
     font-family: 'Jost', sans-serif;
     background-color: coral;
-
-
 }
 
-.btn:default{
-    background-color:coral;;
+.btn:default {
+    background-color: coral;
 }
+
 .btn:hover {
     /* color: #fff; */
-    background-color:aqua;
+    background-color: aqua;
+    border: solid 1px #777777;
+}
+
+
+
+.hover-effect-btn {
+    position: relative;
+    width: 100%;
+    padding-left: 15%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Настройка цвета и прозрачности для блока с заголовком */
+    transition: background 0.5s ease;
+}
+
+.hover-effect-btn:hover .overlay {
+    display: block;
+    background: rgba(0, 0, 0, 0.9);
+    /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+}
+
+.hover-effect-btn:hover .title {
+    top: 0%;
+    /* Отступ сверху при наведении */
+}
+
+.button {
+    position: relative;
+    /* left: 70%; */
+    top: 0%;
+    /* Отступ сверху */
+    text-align: center;
+    opacity: 0;
+    /* transition: opacity .35s ease; */
+
+    padding: 8px 10px;
+    font-family: 'Jost', sans-serif;
+    background-color: coral;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.hover-effect-btn:hover .button {
+    opacity: 1;
+    background-color: coral;
     border: solid 1px #777777;
 }

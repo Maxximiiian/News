@@ -57,7 +57,12 @@ route.post('/tags', async (req, res) => {
 
     const allUserTags = allUserTagId.map(async (el, i) => {
       const oneTag = await Tag.findOne({ where: { id: el } });
-      return { tag: oneTag.dataValues.tagName, isFavorite: booleanOfAllTags[i] };
+      return {
+        userId: currUserId,
+        id: el,
+        tag: oneTag.dataValues.tagName,
+        isFavorite: booleanOfAllTags[i],
+      };
     });
 
     Promise.all(allUserTags)
@@ -80,7 +85,7 @@ route.post('/createtag', authCheck, async (req, res) => {
       },
     });
     if (tagChoise === 'false') {
-      const userTag = await UserTags.findOrCreate({
+      await UserTags.findOrCreate({
         where: {
           userId: currUserId,
           tagId: newTag.dataValues.id,
@@ -88,7 +93,7 @@ route.post('/createtag', authCheck, async (req, res) => {
         },
       });
     } else {
-      const userTag = await UserTags.findOrCreate({
+      await UserTags.findOrCreate({
         where: {
           userId: currUserId,
           tagId: newTag.dataValues.id,
@@ -104,9 +109,13 @@ route.post('/createtag', authCheck, async (req, res) => {
     const allUserTags = allUserTagId.map(async (el, i) => {
       const oneTag = await Tag.findOne({ where: { id: el } });
       // console.log(oneTag.dataValues.tagName);
-      return { tag: oneTag.dataValues.tagName, isFavorite: booleanOfAllTags[i] };
+      return {
+        userId: currUserId,
+        id: el,
+        tag: oneTag.dataValues.tagName,
+        isFavorite: booleanOfAllTags[i],
+      };
     });
-
     Promise.all(allUserTags)
       .then((responses) => res.json(responses));
   } catch (err) {
@@ -116,8 +125,20 @@ route.post('/createtag', authCheck, async (req, res) => {
 
 route.get('/getnews', async (req, res) => {
   const data = await axios.get('http://www.vedomosti.ru/newsline/out/rss.xml');
-//   const newData = await data.text();
+  //   const newData = await data.text();
   res.json(data.data);
+});
+
+route.post('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+    console.log(id);
+    await UserTags.destroy({ where: { tagId: id, userId } });// id
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 export default route;
