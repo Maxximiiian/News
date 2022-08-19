@@ -18,10 +18,10 @@ export default function AllNews({ authState }) {
           <div style={{ height: '150px' }} />
           <form className="container bg-secondary rounded-3 py-3 item" align="center">
             <div className="mb-3">
-              <h2>{text[i]}</h2>
+              <h2 className="charnews">{text[i]}</h2>
             </div>
             <div className="mb-3">
-              <h2>{text2[i]}</h2>
+              <h2 className="charnews">{text2[i]}</h2>
             </div>
             <div className="mx-auto mt-5">
               <h2>И.т.д...</h2>
