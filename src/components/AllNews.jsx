@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AllNews({ authState }) {
   // console.log(authState);
@@ -6,8 +7,8 @@ export default function AllNews({ authState }) {
   useEffect(() => {
     fetch('/api/v1/getnews').then((res) => (res.json())).then((data) => setNews(data));
   }, []);
-  const text = news?.split('<item>').map((x) => x.match(/<title>( *.*)*<\/title>/gm));
-  const text2 = news?.split('<item>').map((x) => x.match(/<link>( *.*)*<\/link>/gm));
+  const text = news?.split('<item>').map((x) => x.match(/<title>( *.*)*<\/title>/gm)[0].slice(7, -8));
+  const text2 = news?.split('<item>').map((x) => x.match(/<link>( *.*)*<\/link>/gm)[0].slice(6, -7));
 
   console.log(text, text2);
   // fetch юзэффектом на апишку и вывести данные мапом в ретерн
@@ -17,13 +18,9 @@ export default function AllNews({ authState }) {
         <div className="mx-auto mt-5" style={{ width: '400px' }}>
           <form className="container zalupa rounded-3 py-3 item" align="center">
             <div className="mb-3">
-              <h2 className="charnews">{text[i]}</h2>
-            </div>
-            <div className="mb-3">
-              <h2 className="charnews">{text2[i]}</h2>
-            </div>
-            <div className="mx-auto mt-5">
-              <h2>И.т.д...</h2>
+              <a href={`${text2[i]}`}>
+                <h2 className="charnews">{text[i]}</h2>
+              </a>
             </div>
           </form>
         </div>
