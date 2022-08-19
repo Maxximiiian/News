@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Home({ authState }) {
   const [input, setInput] = useState({ tagName: '', authState });
+
   const [tagsState, setTagsState] = useState([]);
 
   const changeHandler = (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -12,11 +13,20 @@ export default function Home({ authState }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),
     });
+
     const data = await response.json();
     setTagsState(data);
     // console.log(data);
   };
-  console.log(tagsState, tagsState[0]);
+  useEffect(() => {
+    fetch('api/v1/tags', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(authState),
+    })
+      .then((res) => res.json()).then((resp) => setTagsState(resp));
+  }, []);
+  // console.log(tagsState, tagsState[0]);
   return (
     <>
       <div className="container">
