@@ -4,7 +4,7 @@
     background-attachment: fixed; /*Фон страницы фиксируется */
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
     background-position: center center;
-    background-size:contain;
+    background-size: cover;
     
     
 }
@@ -26,7 +26,7 @@ color: coral;
     background-color: #4520ab;
 }
 
-/* .middle {
+.middle {
     position: relative;
     left:400px;
 } */
