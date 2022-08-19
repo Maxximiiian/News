@@ -21,7 +21,7 @@ export default function Registration({ authState, setAuthState }) {
       }
       navigate('/news'); // VOT TUT MB HUINYA!!!!
     } else {
-      alert('LOH PIDR');
+      alert('Повторите ввод');
       setInput({ email: '', password: '', repeat: '' });
     }
   };
