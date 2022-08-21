@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
-
 export default function AllNews({ authState }) {
-
-const [plyerState, setPlyerState] = useState(false);
+  const [plyerState, setPlyerState] = useState(false);
   const [tagsState, setTagsState] = useState([]);
   const [news, setNews] = useState();
   const [text, setText] = useState([{ title: '', link: '' }]);
@@ -26,6 +24,8 @@ const [plyerState, setPlyerState] = useState(false);
         return fetch('/api/v1/getnews').then((res) => (res.json())).then((data) => setNews((prev) => {
           setText((prevt) => {
             const text2 = data?.split('<item>').map((x) => x.match(/<link>( *.*)*<\/link>/gm)[0].slice(6, -7));
+            const array2 = data?.split('<item>').map((x) => x.match(/<title>( *.*)*<\/title>/gm)[0].slice(7, -8))
+              .map((title, ind) => ({ title, link: text2[ind] }))
             const array = data?.split('<item>').map((x) => x.match(/<title>( *.*)*<\/title>/gm)[0].slice(7, -8))
               .map((title, ind) => ({ title, link: text2[ind] }))
               .filter((el) => {
@@ -36,6 +36,8 @@ const [plyerState, setPlyerState] = useState(false);
               });
             console.log('TAGS', resp);
             console.log('texts array', array);
+            if (array.length < 1) { return array2; }
+            console.log(array2);
             return array;
           });
           return data;
@@ -43,13 +45,11 @@ const [plyerState, setPlyerState] = useState(false);
       });
   }, []);
 
-
   const pleerHandler = (e) => {
     e.preventDefault();
     setPlyerState(!plyerState);
     console.log(plyerState);
   };
-
 
   // useEffect(() => {
 
@@ -79,28 +79,38 @@ const [plyerState, setPlyerState] = useState(false);
 
   return (
     <>
-      {plyerState
-        ? (
-          <>
-            <div className="player">
-              <ReactPlayer className="container zalupa rounded-3 py-3 item" align="center" url="https://www.youtube.com/watch?v=pNU_ImrnyVU" />
-            </div>
-          </>
-        )
-        : <></>}
-      <button className="btnplyer" type="button" onClick={pleerHandler}>Музыка</button>
-      {text?.map((el, i) => (
-        <div className="mx-auto mt-5" style={{ width: '500px' }}>
-          <form className="container zalupa rounded-3 py-3 item" align="center">
-            <div className="mb-3">
-              <a href={`${el.link}`}>
-                <h2 className="charnews">{el.title}</h2>
-              </a>
-            </div>
-          </form>
+      <div className="container pt-3 mt-3">
+        <div className="row">
+          <div className="col-sm">
+            {plyerState
+              ? (
+                <>
+                  <div className="player" width="200">
+                    <ReactPlayer className="zalupa container  rounded-3 py-3 item fixed" align="center" url="https://www.youtube.com/watch?v=vN-MX12xR-Y&ab_channel=%D0%9F%D0%B0%D0%B1%D0%BB%D0%B8%D0%BA%D0%A1%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%BC%D0%B0%D0%BD" />
+                  </div>
+                </>
+              )
+              : <></>}
+            <button className="btnplyer" type="button" onClick={pleerHandler}>Музыка</button>
+          </div>
+          <div className="col-sm">
+            div
+            {text?.map((el, i) => (
+              <div className="mx-auto mt-5" style={{ width: '500px' }}>
+                <form className="container zalupa rounded-3 py-3 item" align="center">
+                  <div className="mb-3">
+                    <a href={`${el.link}`}>
+                      <h2 className="charnews">{el.title}</h2>
+                    </a>
+                  </div>
+                </form>
 
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
+      </div>
+
     </>
   );
 }
